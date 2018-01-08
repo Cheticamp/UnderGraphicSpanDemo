@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
             ResourcesCompat.getDrawable(getResources(), R.drawable.gradient_drawable, null);
         String text = "Drawable";
         SpannableString spannable = new SpannableString(text);
-        spannable.setSpan(new UnderDrawableSpan(this, drawable, null, null, 8),
+        spannable.setSpan(new UnderDrawableSpan(drawable, null, null, 8),
                           0, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         TextView textView = findViewById(R.id.textDrawable);
         textView.setText(spannable, TextView.BufferType.SPANNABLE);
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         // Display dot
         text = "Dot";
         spannable = new SpannableString(text);
-        spannable.setSpan(new UnderDotSpan(this, 6, 0xFF039BE5, 8),
+        spannable.setSpan(new UnderDotSpan(20, 0xFF039BE5, 8),
                           0, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView = findViewById(R.id.textDot);
         textView.setText(spannable, TextView.BufferType.SPANNABLE);
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         // Display an oval
         text = "Oval";
         spannable = new SpannableString(text);
-        spannable.setSpan(new UnderOvalSpan(this, 20, 16, 0xFF40FF56, 8),
+        spannable.setSpan(new UnderOvalSpan(60, 48, 0xFF40FF56, 8),
                           0, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView = findViewById(R.id.textOval);
         textView.setText(spannable, TextView.BufferType.SPANNABLE);

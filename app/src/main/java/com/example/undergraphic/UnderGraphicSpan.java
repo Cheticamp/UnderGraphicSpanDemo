@@ -6,25 +6,29 @@ import android.support.annotation.NonNull;
 import android.text.TextPaint;
 import android.text.style.LineHeightSpan;
 import android.text.style.ReplacementSpan;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 
 public abstract class UnderGraphicSpan extends ReplacementSpan implements LineHeightSpan.WithDensity {
     protected int mDrawableWidth;
     protected int mDrawableHeight;
 
     // Margin between the bottom of the text and the top of the graphic.
-    protected int mMargin;
+    protected int mMargin = 0;
 
-    // How much we need to jog the text to line up with a larger-than-text-width drawable.
+    // How much we need to jog the text over to line up with a larger-than-text-width drawable.
     protected int mStartShim = 0;
 
     protected UnderGraphicSpan() {
     }
 
+    // Just draw the text.
     @Override
-    public abstract void draw(@NonNull Canvas canvas, CharSequence text, int start, int end, float x,
-                              int top, int y, int bottom, @NonNull Paint paint);
+    public void draw(@NonNull Canvas canvas, CharSequence text, int start, int end, float x,
+                     int top, int y, int bottom, @NonNull Paint paint) {
+        canvas.save();
+        canvas.translate(mStartShim, 0);
+        canvas.drawText(text, start, end, x, y, paint);
+        canvas.restore();
+    }
 
     // ReplacementSpan override to determine the size (length) of the text.
     @Override
@@ -57,10 +61,5 @@ public abstract class UnderGraphicSpan extends ReplacementSpan implements LineHe
     @Override
     public void chooseHeight(CharSequence charSequence, int i, int i1, int i2, int i3,
                              Paint.FontMetricsInt fontMetricsInt) {
-    }
-
-    protected static int dpToPx(int dps, DisplayMetrics metrics) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                                               (float) dps, metrics);
     }
 }
